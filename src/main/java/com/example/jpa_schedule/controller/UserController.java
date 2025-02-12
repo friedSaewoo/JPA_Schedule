@@ -1,6 +1,6 @@
 package com.example.jpa_schedule.controller;
 
-import com.example.jpa_schedule.dto.*;
+import com.example.jpa_schedule.dto.user.*;
 import com.example.jpa_schedule.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -63,7 +63,6 @@ public class UserController {
         }
         session = request.getSession();
         session.setAttribute("user", login);
-        log.info("User session created: {}", session.getId());
 
         return new ResponseEntity<>(login,HttpStatus.OK);
     }
