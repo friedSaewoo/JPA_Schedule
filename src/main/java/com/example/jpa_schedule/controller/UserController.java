@@ -1,14 +1,14 @@
 package com.example.jpa_schedule.controller;
 
-import com.example.jpa_schedule.dto.SignUpRequestDto;
-import com.example.jpa_schedule.dto.SignUpResponseDto;
-import com.example.jpa_schedule.dto.UpdatePasswordRequestDto;
-import com.example.jpa_schedule.dto.UserResponseDto;
+import com.example.jpa_schedule.dto.*;
 import com.example.jpa_schedule.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/user")
@@ -50,5 +50,26 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto,
+                                                  HttpServletRequest request){
+        LoginResponseDto login = userService.login(loginRequestDto);
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"이미 로그인된 삳태입니다.");
+        }
+        session = request.getSession();
+        session.setAttribute("user", login);
 
+        return new ResponseEntity<>(login,HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            session.invalidate();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

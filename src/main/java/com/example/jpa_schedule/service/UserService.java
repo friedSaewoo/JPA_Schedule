@@ -1,8 +1,7 @@
 package com.example.jpa_schedule.service;
 
-import com.example.jpa_schedule.dto.SignUpResponseDto;
-import com.example.jpa_schedule.dto.UpdatePasswordRequestDto;
-import com.example.jpa_schedule.dto.UserResponseDto;
+import com.example.jpa_schedule.dto.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface UserService {
 
@@ -13,4 +12,6 @@ public interface UserService {
     void updatePassword(Long userId, UpdatePasswordRequestDto requestDto);
 
     void delete(Long userId);
+
+    LoginResponseDto login(LoginRequestDto loginRequestDto);
 }
