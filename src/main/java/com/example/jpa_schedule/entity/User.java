@@ -2,11 +2,13 @@ package com.example.jpa_schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Entity
 @Table(name = "users")
+@Slf4j
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +31,12 @@ public class User extends BaseEntity{
         this.userEmail = userEmail;
         this.password = password;
     }
+
+    public void updatePassword(String password){
+        log.info("oldPassword : "+this.password);
+        log.info("newPassword : "+password);
+        this.password = password;
+        log.info("changedPassword : "+ this.password);
+    }
+
 }
