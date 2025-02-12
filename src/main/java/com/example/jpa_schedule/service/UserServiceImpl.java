@@ -1,10 +1,10 @@
 package com.example.jpa_schedule.service;
 
 import com.example.jpa_schedule.UserRepository.UserRepository;
-import com.example.jpa_schedule.dto.SignUpResponseDto;
-import com.example.jpa_schedule.dto.UpdatePasswordRequestDto;
-import com.example.jpa_schedule.dto.UserResponseDto;
+import com.example.jpa_schedule.dto.*;
 import com.example.jpa_schedule.entity.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -63,5 +63,18 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByIdOrElseThrow(userId);
 
         userRepository.delete(user);
+    }
+
+    @Override
+    public LoginResponseDto login(LoginRequestDto loginRequestDto) {
+        User user = userRepository.findByUserEmailOrElseThrow(loginRequestDto.getUserEmail());
+
+        if (!user.getPassword().equals(loginRequestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto(user.getUserId(), user.getUserEmail(), user.getUserName());
+
+        return loginResponseDto;
     }
 }
