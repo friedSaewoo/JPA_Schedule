@@ -2,7 +2,7 @@ package com.example.jpa_schedule.service;
 
 import com.example.jpa_schedule.UserRepository.UserRepository;
 import com.example.jpa_schedule.config.PasswordEncoder;
-import com.example.jpa_schedule.dto.*;
+import com.example.jpa_schedule.dto.user.*;
 import com.example.jpa_schedule.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Optional;
 
 @Service
 @Slf4j

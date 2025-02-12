@@ -1,7 +1,6 @@
 package com.example.jpa_schedule.service;
 
-import com.example.jpa_schedule.dto.*;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.jpa_schedule.dto.user.*;
 
 public interface UserService {
 
