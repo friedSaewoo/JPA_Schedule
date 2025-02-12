@@ -4,12 +4,15 @@ import com.example.jpa_schedule.dto.*;
 import com.example.jpa_schedule.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -51,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto,
+    public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto,
                                                   HttpServletRequest request){
         LoginResponseDto login = userService.login(loginRequestDto);
         HttpSession session = request.getSession(false);
@@ -60,6 +63,7 @@ public class UserController {
         }
         session = request.getSession();
         session.setAttribute("user", login);
+        log.info("User session created: {}", session.getId());
 
         return new ResponseEntity<>(login,HttpStatus.OK);
     }
