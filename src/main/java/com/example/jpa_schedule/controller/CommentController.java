@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +21,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class CommentController {
     private final CommentService commentService;
 
+    /**
+     * 댓글 작성
+     * @param scheduleId 클라이언트 측에서 보내는 일정 ID
+     * @param commentRequestDto 작성할 댓글 정보가 담긴 객체
+     * @param request session 정보가 담긴 객체
+     * @return 생성된 댓글 정보, HTTP 상태코드 200(OK)
+     */
     @PostMapping("/writeComment/{scheduleId}")
     public ResponseEntity<CommentResponseDto> writeComment(@PathVariable Long scheduleId,
                                                            @Valid @RequestBody CommentRequestDto commentRequestDto,
@@ -37,12 +45,24 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDto,HttpStatus.OK);
     }
 
+    /**
+     * 댓글 단건 조회
+     * @param commentId 조회할 댓글 ID
+     * @return 조회한 댓글 정보, HTTP 상태코드 200(OK)
+     */
     @PostMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> findById(@PathVariable Long commentId){
 
         return new ResponseEntity<>(commentService.findById(commentId),HttpStatus.OK);
     }
 
+    /**
+     * 댓글 내용수정
+     * @param commentId 수정할 댓글 ID
+     * @param requestDto 수정할 정보가 담긴 객체
+     * @param request session의 user정보를 확인 (본인 댓글만 수정가능)
+     * @return 수정된 댓글 정보, HTTP 상태코드 200(OK)
+     */
     @PatchMapping("/modifyComment/{commentId}")
     public ResponseEntity<CommentResponseDto> moifyComment(@PathVariable Long commentId,
                                                            @Valid @RequestBody CommentRequestDto requestDto,
@@ -60,6 +80,12 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDto,HttpStatus.OK);
     }
 
+    /**
+     * 댓글 삭제
+     * @param commentId 삭제할 댓글 ID
+     * @param request session의 user정보를 확인 (본인 댓글만 삭제가능)
+     * @return HTTP 상태코드 200(OK)
+     */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId,
                                               HttpServletRequest request){
