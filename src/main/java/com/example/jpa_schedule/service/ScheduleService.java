@@ -11,7 +11,7 @@ public interface ScheduleService {
 
     ScheduleResponseDto findById(Long scheduleId);
 
-    ScheduleResponseDto modifyTodo(Long scheduleId,Long userId,String todo);
+    void modifyTodo(Long scheduleId,Long userId,String todo);
 
     void deleteSchedule(Long scheduleId, Long userId);
 
