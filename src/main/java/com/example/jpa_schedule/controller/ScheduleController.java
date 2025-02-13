@@ -83,8 +83,8 @@ public class ScheduleController {
         LoginResponseDto user = (LoginResponseDto) session.getAttribute("user");
         Long userId = user.getUserId();
 
-        ScheduleResponseDto responseDto = scheduleService.modifyTodo(scheduleId, userId, modifyDto.getTodo());
-
+        scheduleService.modifyTodo(scheduleId, userId, modifyDto.getTodo());
+        ScheduleResponseDto responseDto = scheduleService.findById(scheduleId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

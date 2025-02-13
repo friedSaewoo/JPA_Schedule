@@ -14,6 +14,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -52,21 +53,14 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     @Transactional
-    public ScheduleResponseDto modifyTodo(Long scheduleId, Long userId, String todo) {
+    public void modifyTodo(Long scheduleId, Long userId, String todo) {
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
         if(!findSchedule.getUser().getUserId().equals(userId)){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"접근권한이 없습니다.");
         }
         findSchedule.updateTodo(todo);
-        Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
-        return new ScheduleResponseDto(
-                schedule.getScheduleId(),
-                schedule.getTitle(),
-                schedule.getTodo(),
-                schedule.getCreatedAt(),
-                schedule.getModifiedAt()
-        );
     }
+
 
     @Override
     public void deleteSchedule(Long scheduleId, Long userId) {
