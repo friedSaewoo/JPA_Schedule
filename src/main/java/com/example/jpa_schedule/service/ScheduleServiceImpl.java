@@ -6,6 +6,9 @@ import com.example.jpa_schedule.dto.schedule.ScheduleResponseDto;
 import com.example.jpa_schedule.entity.Schedule;
 import com.example.jpa_schedule.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,5 +72,13 @@ public class ScheduleServiceImpl implements ScheduleService{
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"접근권한이 없습니다.");
         }
         scheduleRepository.delete(schedule);
+    }
+
+    @Override
+    public Page<ScheduleResponseDto> findScheduleList(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Schedule> schedulePage = scheduleRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return schedulePage.map(ScheduleResponseDto::new);
     }
 }
