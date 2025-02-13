@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
+    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody @Valid SignUpRequestDto requestDto) {
         SignUpResponseDto responseDto = userService.signUp(
                 requestDto.getUserEmail(),
                 requestDto.getPassword(),
@@ -38,7 +38,7 @@ public class UserController {
 
     @PatchMapping("/updatePassword/{userId}")
     public ResponseEntity<Void> updatePassword(@PathVariable Long userId,
-                                               @RequestBody UpdatePasswordRequestDto requestDto){
+                                               @RequestBody @Valid UpdatePasswordRequestDto requestDto){
 
         userService.updatePassword(userId,requestDto);
 
