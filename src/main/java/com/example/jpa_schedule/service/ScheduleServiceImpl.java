@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,10 +78,13 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public Page<ScheduleResponseDto> findScheduleList(int page, int size) {
+    public PagedModel<EntityModel<ScheduleResponseDto>> findScheduleList(int page, int size,
+                                                                         PagedResourcesAssembler<ScheduleResponseDto> assembler
+    ) {
 
         Pageable pageable = PageRequest.of(page,size);
         Page<Schedule> schedulePage = scheduleRepository.findAllByOrderByCreatedAtDesc(pageable);
-        return schedulePage.map(ScheduleResponseDto::new);
+        Page<ScheduleResponseDto> responsePage = schedulePage.map(ScheduleResponseDto::new);
+        return assembler.toModel(responsePage);
     }
 }

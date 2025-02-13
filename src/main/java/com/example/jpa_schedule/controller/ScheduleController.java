@@ -10,7 +10,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -115,11 +117,12 @@ public class ScheduleController {
      * @return 일정 정보가 담긴 Page객체 반환, HTTP 상태코드 200 (OK)
      */
     @GetMapping
-    public ResponseEntity<Page<ScheduleResponseDto>> findScheduleList(@RequestParam(defaultValue = "0") int page,
-                                                                      @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<PagedModel<EntityModel<ScheduleResponseDto>>> findScheduleList(@RequestParam(defaultValue = "0") int page,
+                                                                                         @RequestParam(defaultValue = "10") int size,
+                                                                                         PagedResourcesAssembler<ScheduleResponseDto> assembler) {
 
-        Page<ScheduleResponseDto> scheduleList = scheduleService.findScheduleList(page,size);
-        return new ResponseEntity<>(scheduleList,HttpStatus.OK);
+        PagedModel<EntityModel<ScheduleResponseDto>> scheduleList = scheduleService.findScheduleList(page, size, assembler);
+        return ResponseEntity.ok(scheduleList);
     }
 
 }
