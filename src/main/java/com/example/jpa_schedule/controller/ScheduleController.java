@@ -61,7 +61,6 @@ public class ScheduleController {
 
         LoginResponseDto user = (LoginResponseDto) session.getAttribute("user");
         Long userId = user.getUserId();
-        log.info("scheduleId = {}, userId ={}, todo = {}",scheduleId,userId,modifyDto.getTodo());
 
          ScheduleResponseDto responseDto=scheduleService.modifyTodo(scheduleId,userId,modifyDto.getTodo());
 
