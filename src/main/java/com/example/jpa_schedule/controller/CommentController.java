@@ -50,7 +50,7 @@ public class CommentController {
      * @param commentId 조회할 댓글 ID
      * @return 조회한 댓글 정보, HTTP 상태코드 200(OK)
      */
-    @PostMapping("/{commentId}")
+    @GetMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> findById(@PathVariable Long commentId){
 
         return new ResponseEntity<>(commentService.findById(commentId),HttpStatus.OK);
