@@ -16,3 +16,6 @@
 ![Image](https://github.com/user-attachments/assets/ec1de644-b6e2-4083-9538-d96b8082c275)
 
 [ERD CLOUD](https://www.erdcloud.com/d/z8DeYPzpoXjXF6HPX)
+
+# 블로그
+[트러블 슈팅 - JPA 변경 감지와 트랜잭션 커밋 지연](https://velog.io/@zriag/JPA-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80%EC%99%80-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EC%BB%A4%EB%B0%8B-%EC%A7%80%EC%97%B0)
