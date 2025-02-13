@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,7 @@ public class ScheduleController {
     @PatchMapping("/modifyTodo/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> modifyTodo(@PathVariable Long scheduleId,
                                                           @Valid @RequestBody ScheduleTodoModifyDto modifyDto,
-                                                          HttpServletRequest request){
+                                                          HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
@@ -62,14 +63,14 @@ public class ScheduleController {
         LoginResponseDto user = (LoginResponseDto) session.getAttribute("user");
         Long userId = user.getUserId();
 
-         ScheduleResponseDto responseDto=scheduleService.modifyTodo(scheduleId,userId,modifyDto.getTodo());
+        ScheduleResponseDto responseDto = scheduleService.modifyTodo(scheduleId, userId, modifyDto.getTodo());
 
-        return new ResponseEntity<>(responseDto,HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId,
-                                               HttpServletRequest request){
+                                               HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
@@ -79,8 +80,16 @@ public class ScheduleController {
         LoginResponseDto user = (LoginResponseDto) session.getAttribute("user");
         Long userId = user.getUserId();
 
-        scheduleService.deleteSchedule(scheduleId,userId);
+        scheduleService.deleteSchedule(scheduleId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ScheduleResponseDto>> findScheduleList(@RequestParam(defaultValue = "0") int page,
+                                                                      @RequestParam(defaultValue = "10") int size) {
+
+        Page<ScheduleResponseDto> scheduleList = scheduleService.findScheduleList(page,size);
+        return new ResponseEntity<>(scheduleList,HttpStatus.OK);
     }
 
 }
