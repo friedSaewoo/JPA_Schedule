@@ -1,8 +1,8 @@
 package com.example.jpa_schedule.service;
 
-import com.example.jpa_schedule.UserRepository.CommentRepository;
-import com.example.jpa_schedule.UserRepository.ScheduleRepository;
-import com.example.jpa_schedule.UserRepository.UserRepository;
+import com.example.jpa_schedule.repository.CommentRepository;
+import com.example.jpa_schedule.repository.ScheduleRepository;
+import com.example.jpa_schedule.repository.UserRepository;
 import com.example.jpa_schedule.dto.comment.CommentRequestDto;
 import com.example.jpa_schedule.dto.comment.CommentResponseDto;
 import com.example.jpa_schedule.entity.Comment;

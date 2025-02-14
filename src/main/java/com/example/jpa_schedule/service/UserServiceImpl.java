@@ -1,6 +1,6 @@
 package com.example.jpa_schedule.service;
 
-import com.example.jpa_schedule.UserRepository.UserRepository;
+import com.example.jpa_schedule.repository.UserRepository;
 import com.example.jpa_schedule.config.PasswordEncoder;
 import com.example.jpa_schedule.dto.user.*;
 import com.example.jpa_schedule.entity.User;
