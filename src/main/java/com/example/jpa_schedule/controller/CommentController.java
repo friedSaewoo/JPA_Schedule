@@ -26,7 +26,7 @@ public class CommentController {
      * @param scheduleId 클라이언트 측에서 보내는 일정 ID
      * @param commentRequestDto 작성할 댓글 정보가 담긴 객체
      * @param request session 정보가 담긴 객체
-     * @return 생성된 댓글 정보, HTTP 상태코드 200(OK)
+     * @return 생성된 댓글 정보, HTTP 상태코드 200(OK)ss
      */
     @PostMapping("/writeComment/{scheduleId}")
     public ResponseEntity<CommentResponseDto> writeComment(@PathVariable Long scheduleId,
