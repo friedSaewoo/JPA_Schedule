@@ -1,4 +1,4 @@
-package com.example.jpa_schedule.UserRepository;
+package com.example.jpa_schedule.repository;
 
 
 import com.example.jpa_schedule.entity.User;

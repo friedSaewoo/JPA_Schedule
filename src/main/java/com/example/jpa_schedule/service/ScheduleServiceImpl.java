@@ -1,7 +1,7 @@
 package com.example.jpa_schedule.service;
 
-import com.example.jpa_schedule.UserRepository.ScheduleRepository;
-import com.example.jpa_schedule.UserRepository.UserRepository;
+import com.example.jpa_schedule.repository.ScheduleRepository;
+import com.example.jpa_schedule.repository.UserRepository;
 import com.example.jpa_schedule.dto.schedule.ScheduleResponseDto;
 import com.example.jpa_schedule.entity.Schedule;
 import com.example.jpa_schedule.entity.User;
@@ -14,7 +14,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
